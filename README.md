@@ -20,5 +20,13 @@ There are 3 repo under spring-cloud umbrella:
 
 ### Service Discovery
 One of the most important feature of any MS architecture is service discovery. Services inside MS architecture need to communicate with one another, and they call each other by either DNS name or IP+port. So they need to know addresses of each other. You can manually assign address to each MS and then pass it as env vars to all MS, but it's not a good idea. Ideally if services can just call each other by the name, and under-the-hood they can find each other IP & port. This is exactly what is service discovery for. You just add it, and inside your code you can call each other just by name.
+There are several tools to enable service-discovery including: `nacos`, `eureka` and others. For this project demo I've chosen `nacos` as an example. And although configuration is different for each project, but once you configure it, the logic is always the same, you just add service-name to the Feign config, and it works out-of-the-box.
+You can find more details in [nacos page](Nacos.md).
 
 ### Open Telemetry
+This one is the most important part in the system, cause not only it helps a lot to devs, but it also add customer's value by helping to monitor the app, track any problems, and trace any user journey.
+You can find more info on [OpenTelemetry website](https://opentelemetry.io/docs/what-is-opentelemetry), this is official web-page with detailed explanation what is OpenTelemetry is about. Here I just say that open telemetry include 3 things:
+* logs
+* metrics
+* traces
+You can find more details in [tracing page](Tracing.md).
