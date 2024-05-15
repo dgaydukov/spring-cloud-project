@@ -14,10 +14,11 @@ This project is like an umbrella for all spring-cloud related projects where all
 
 ### Available Repositories
 There are 3 repo under spring-cloud umbrella:
-* [spring-cloud-external-gateway](https://github.com/dgaydukov/spring-cloud-external-gateway)
-* [spring-cloud-asset-service](https://github.com/dgaydukov/spring-cloud-asset-service)
-* [spring-cloud-order-service](https://github.com/dgaydukov/spring-cloud-order-service)
+* [spring-cloud-external-gateway](https://github.com/dgaydukov/spring-cloud-external-gateway) - as name suggests this is the gateway project which is serving requests from outside the cloud. All your projects can talk inside VPC (virtual private network in AWS) directly to each other, no additional auth layer is required, but if you want to access any service from outside, you need gateway which provides: auth layer + data aggregation layer. 
+* [spring-cloud-asset-service](https://github.com/dgaydukov/spring-cloud-asset-service) - simple spring-boot service with several API endpoints to get assets & prices
+* [spring-cloud-order-service](https://github.com/dgaydukov/spring-cloud-order-service) - simple spring-boot service with several API endpoints to created & fetch orders
 
 ### Service Discovery
+One of the most important feature of any MS architecture is service discovery. Services inside MS architecture need to communicate with one another, and they call each other by either DNS name or IP+port. So they need to know addresses of each other. You can manually assign address to each MS and then pass it as env vars to all MS, but it's not a good idea. Ideally if services can just call each other by the name, and under-the-hood they can find each other IP & port. This is exactly what is service discovery for. You just add it, and inside your code you can call each other just by name.
 
 ### Open Telemetry
