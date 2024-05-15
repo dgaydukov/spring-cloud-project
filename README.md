@@ -29,4 +29,4 @@ You can find more info on [OpenTelemetry website](https://opentelemetry.io/docs/
 * logs
 * metrics
 * traces
-You can find more details in [tracing page](Tracing.md).
+You can find more details in [tracing page](otel/Tracing.md).
