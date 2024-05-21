@@ -3,6 +3,7 @@
 ### Content
 * [Project Description](#project-description)
 * [Available Repositories](#available-repositories)
+* [Microservice architecture](#microservice-architecture)
 * [Service Discovery](#service-discovery)
 * [Open Telemetry](#open-telemetry)
 
@@ -17,6 +18,14 @@ There are 3 repo under spring-cloud umbrella:
 * [spring-cloud-external-gateway](https://github.com/dgaydukov/spring-cloud-external-gateway) - as name suggests this is the gateway project which is serving requests from outside the cloud. All your projects can talk inside VPC (virtual private network in AWS) directly to each other, no additional auth layer is required, but if you want to access any service from outside, you need gateway which provides: auth layer + data aggregation layer. 
 * [spring-cloud-asset-service](https://github.com/dgaydukov/spring-cloud-asset-service) - simple spring-boot service with several API endpoints to get assets & prices
 * [spring-cloud-order-service](https://github.com/dgaydukov/spring-cloud-order-service) - simple spring-boot service with several API endpoints to created & fetch orders
+
+### Microservice architecture
+Currently inside 3 available repos we have:
+* service discovery - we use [nacos](Nacos.md) so services can register itself on start-up and talk to each other by name (no need to hardcode IP addresses of each service)
+* global config management - we use [nacos](Nacos.md) to store global config for all micro-services, which simplify it management, and also allows hot reload 
+* i18n - we have added support for multiple languages, and header propagation. If you want to get response in specific language, just pass header in your request `Accept-Language: es`. Because we use header propagation, if A->B->C, and you call service A with this header, your header would be propagated all the way to C, and you get response form C in your selected language
+* OpenTelemetry and tracing - we are using [mictometer tracing](https://spring.io/blog/2022/10/12/observability-with-spring-boot-3) to add support for tracing. Now traceId is inserted into all logs, and also propagated through service chain call. Now you can use single traceId to fetch all logs from all services which were part of this request execution.
+
 
 ### Service Discovery
 One of the most important feature of any MS architecture is service discovery. Services inside MS architecture need to communicate with one another, and they call each other by either DNS name or IP+port. So they need to know addresses of each other. You can manually assign address to each MS and then pass it as env vars to all MS, but it's not a good idea. Ideally if services can just call each other by the name, and under-the-hood they can find each other IP & port. This is exactly what is service discovery for. You just add it, and inside your code you can call each other just by name.
