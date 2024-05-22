@@ -4,6 +4,7 @@
 * [Project Description](#project-description)
 * [Available Repositories](#available-repositories)
 * [Microservice architecture](#microservice-architecture)
+* [Best practices](#best-practices)
 * [Service Discovery](#service-discovery)
 * [Open Telemetry](#open-telemetry)
 
@@ -26,6 +27,10 @@ Currently inside 3 available repos we have:
 * i18n - we have added support for multiple languages, and header propagation. If you want to get response in specific language, just pass header in your request `Accept-Language: es`. Because we use header propagation, if A->B->C, and you call service A with this header, your header would be propagated all the way to C, and you get response form C in your selected language
 * OpenTelemetry and tracing - we are using [mictometer tracing](https://spring.io/blog/2022/10/12/observability-with-spring-boot-3) to add support for tracing. Now traceId is inserted into all logs, and also propagated through service chain call. Now you can use single traceId to fetch all logs from all services which were part of this request execution.
 
+### Best practices
+In this example, in all 3 services we are using best practice approach which include:
+* code validation with check-style plugin - you can read [docs](https://checkstyle.org/checks/sizes/linelength.html#LineLength) about existing checks that are possible to add into checkstyle.xml file. Then these checks are validated on `mvn clean install` goal to make sure that if checks are violated, the code won't compile
+* use of `gRPC` protocol of internal communication between services. For client-facing endpoints `REST API` is preferable, cause clients get used to use REST json communication. But services when communicating with each other should use `gRPC` cause it faster and better for intra-service communication.
 
 ### Service Discovery
 One of the most important feature of any MS architecture is service discovery. Services inside MS architecture need to communicate with one another, and they call each other by either DNS name or IP+port. So they need to know addresses of each other. You can manually assign address to each MS and then pass it as env vars to all MS, but it's not a good idea. Ideally if services can just call each other by the name, and under-the-hood they can find each other IP & port. This is exactly what is service discovery for. You just add it, and inside your code you can call each other just by name.
