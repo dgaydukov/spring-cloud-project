@@ -15,6 +15,8 @@ This project is like an umbrella for all spring-cloud related projects where all
 * tech stack description - why did we choose one technology over another
 
 ### Available Repositories
+>Important: all 3 services requiring the nacos to be running first, otherwise they won't be able to start. Plz make sure you successfully run nacos locally through the docker, then you can run any of these 3 apps.
+
 There are 3 repo under spring-cloud umbrella:
 * [spring-cloud-external-gateway](https://github.com/dgaydukov/spring-cloud-external-gateway) - as name suggests this is the gateway project which is serving requests from outside the cloud. All your projects can talk inside VPC (virtual private network in AWS) directly to each other, no additional auth layer is required, but if you want to access any service from outside, you need gateway which provides: auth layer + data aggregation layer. 
 * [spring-cloud-asset-service](https://github.com/dgaydukov/spring-cloud-asset-service) - simple spring-boot service with several API endpoints to get assets & prices
